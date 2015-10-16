@@ -7,7 +7,7 @@
 
 ## 몽고 서버 만들기
 
-### 몽고 이미지 가져오기
+### 몽고 이미지 다운로드
 
 [hub.docker.com](https://hub.docker.com) 에서 'mongo'로 검색.
 [첫번째 저장소](https://hub.docker.com/r/library/mongo/)를 클릭한다.
@@ -16,6 +16,8 @@
 ```
 docker pull mongo:2.4
 ```
+
+### 몽고 컨테이너 구동
 
 몽고디비 서버는 아래 사항을 만족해야 한다.
 
@@ -40,12 +42,16 @@ dc7e8809da9b        mongo:2.4           "/entrypoint.sh mongo"   1 seconds ago  
 
 ## 다른 컨테이너에서 몽고 컨테이너 접속
 
+### 다른 컨테이너 생성
+
 다운로드한 mongo:2.4 이미지로 컨테이너를 하나더 생성한다.
 이 컨테이너에서 기존에 생성한 몽고 컨테이너로 연결하기 위해 --link 옵션을 사용한다.
 
 ```
 docker run -it --name mongo-test --link mongo:mongo mongo:2.4 /bin/bash
 ```
+
+### 몽고 컨테이너로 접속
 
 생성된 컨테이너의 쉘로 접속된다.
 이 컨테이너에서는 `$MONGO_PORT_27017_TCP_ADDR`, `$MONGO_PORT_27017_TCP_PORT` 환경변수에 `--link` 옵션으로 연결된 컨테이너의 IP, PORT 정보를 얻을 수 있다.
